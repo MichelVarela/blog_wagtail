@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load wagtailcore_tags wagtailimages_tags richtext_clean static %}
+
+{% block content %}
+<header class="container-fluid p-3 d-flex flex-wrap" style="gap:20px;">
+    {% for logo in page.logos %}
+        <div class="w-25">{{ logo }}</div>
+    {% endfor %}
+</header>
+
+<main class="container">
+    <section>
+        {% for block in page.hero_section %}
+            {% if block.block_type == 'title' or block.block_type == 'text' %}
+                <div class="text-success py-1">
+                    {{ block }}
+                </div>
+            {% endif %}
+            {% if block.block_type == 'location' %}
+                {{ block }}
+            {% endif %}
+            {% if block.block_type == 'hero_image' %} <div class="w-25 pt-3">{{ block }}</div> {% endif %}
+        {% endfor %}
+    </section>
+
+    <br>
+
+    <section>
+        
+        <form action="{% pageurl page %}" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">{% if page.cta_name %}{{ page.cta_name | richtext_clean }}{% else %} Enviar {% endif %}</button>
+        </form>
+        
+    </section>
+
+    <br>
+</main>
+
+
+{% endblock %}

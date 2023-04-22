@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% load wagtailcore_tags %}
+
+{% block content %}
+    <h1 class="mt-3 mb-5 text-center text-primary">{{ page.title }}</h1>
+    <div class="container">
+        {{ page.body }}
+
+        <!-- Para poder realizar el return a la url padre utilizamos "page.get_parent.url", gracias a la herencia de models este nos retornara a su padre -->
+        <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+    </div>
+{% endblock content %}

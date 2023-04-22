@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{% block content %}
+<div class="w-25">
+    {% image self.banner original class='img-fluid' %}
+</div>
+
+<br>
+<form action="{% pageurl page %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{{ page.cta_name | richtext }}</button>
+</form>
+<br>
+{{ page.text | richtext }}
+{% endblock %}
